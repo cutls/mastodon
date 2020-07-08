@@ -81,7 +81,7 @@ class AccountNote extends ImmutablePureComponent {
     if (this.props.value !== nextProps.value) {
       newState.value = nextProps.value;
     }
-
+    newState.editable = false;
     this.setState(newState);
   }
 
