@@ -178,8 +178,9 @@ class AccountNote extends ImmutablePureComponent {
            ref={this.setTextareaRef}
          />
          : 
-         <div className='account__header__account-note__show' onClick={this.toggleEditable}>
-          {value || intl.formatMessage(messages.placeholder)}
+         <div className='account__header__account-note__show' onClick={this.toggleEditable}
+         dangerouslySetInnerHTML={emojifiedValue || intl.formatMessage(messages.placeholder)}
+         >
         </div> 
          }
       </div>
