@@ -62,7 +62,8 @@ class AccountNote extends ImmutablePureComponent {
     editable: false
   };
 
-  constructor () {
+  constructor (props) {
+    super(props)
     this.setEditable = this.setEditable.bind(this)
     this.unEditable = this.unEditable.bind(this)
   }
