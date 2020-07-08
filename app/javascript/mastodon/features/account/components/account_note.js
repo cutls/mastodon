@@ -101,9 +101,9 @@ class AccountNote extends ImmutablePureComponent {
     this.textarea = c;
   }
 
-  setEditable () {
+  async setEditable () {
     const sleep = msec => new Promise(resolve => setTimeout(resolve, msec));
-    await sleep(500s);
+    await sleep(500);
     this.setState({ editable: true });
     this.textarea.focus();
   }
