@@ -103,6 +103,7 @@ class AccountNote extends ImmutablePureComponent {
 
   setEditable () {
     this.setState({ editable: true });
+    this.textarea.focus();
   }
   unEditable () {
     this.setState({ editable: false });
