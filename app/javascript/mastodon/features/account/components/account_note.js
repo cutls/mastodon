@@ -95,13 +95,11 @@ class AccountNote extends ImmutablePureComponent {
     this.textarea = c;
   }
 
-  toggleEditable (my) {
-    const { editable } = my.state;
-    if(editable) {
-      this.setState({ editable: false });
-    } else {
-      this.setState({ editable: true });
-    }
+  editable (my) {
+    my.setState({ editable: true });
+  }
+  unEditable (my) {
+    my.setState({ editable: false });
   }
 
   handleChange = e => {
@@ -132,7 +130,7 @@ class AccountNote extends ImmutablePureComponent {
     if (this._isDirty()) {
       this._save();
     }
-    this.toggleEditable(this);
+    this.unEditable(this);
   }
 
   _save (showMessage = true) {
@@ -181,7 +179,7 @@ class AccountNote extends ImmutablePureComponent {
            ref={this.setTextareaRef}
          />
          : 
-         <div className='account__header__account-note__show' onClick={this.toggleEditable(this)}
+         <div className='account__header__account-note__show' onClick={this.editable(this)}
          dangerouslySetInnerHTML={{ __html: emojifiedValue }}
          >
         </div> 
