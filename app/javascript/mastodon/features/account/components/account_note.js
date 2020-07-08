@@ -110,7 +110,7 @@ class AccountNote extends ImmutablePureComponent {
       })
     }
     let my = this;
-    sleep(500)
+    sleep(50)
       .then(() => {
           my.setState({ editable: true });
           my.textarea.focus();
