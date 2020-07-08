@@ -101,11 +101,11 @@ class AccountNote extends ImmutablePureComponent {
     this.textarea = c;
   }
 
-  setEditable (my) {
-    my.setState({ editable: true });
+  setEditable () {
+    this.setState({ editable: true });
   }
-  unEditable (my) {
-    my.setState({ editable: false });
+  unEditable () {
+    this.setState({ editable: false });
   }
 
   handleChange = e => {
@@ -136,7 +136,7 @@ class AccountNote extends ImmutablePureComponent {
     if (this._isDirty()) {
       this._save();
     }
-    this.unEditable(this);
+    this.unEditable();
   }
 
   _save (showMessage = true) {
