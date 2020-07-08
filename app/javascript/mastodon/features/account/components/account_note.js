@@ -132,7 +132,7 @@ class AccountNote extends ImmutablePureComponent {
     if (this._isDirty()) {
       this._save();
     }
-    this.toggleEditable();
+    this.toggleEditable(this);
   }
 
   _save (showMessage = true) {
