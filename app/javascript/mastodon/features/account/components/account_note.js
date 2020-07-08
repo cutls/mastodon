@@ -5,6 +5,8 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import Textarea from 'react-textarea-autosize';
 import { is } from 'immutable';
+import emojify from '../../../features/emoji/emoji';
+import escapeTextContentForBrowser from 'escape-html';
 
 const messages = defineMessages({
   placeholder: { id: 'account_note.placeholder', defaultMessage: 'Click to add a note' },
@@ -57,6 +59,7 @@ class AccountNote extends ImmutablePureComponent {
     value: null,
     saving: false,
     saved: false,
+    editable: false
   };
 
   componentWillMount () {
@@ -92,6 +95,15 @@ class AccountNote extends ImmutablePureComponent {
     this.textarea = c;
   }
 
+  toggleEditable () {
+    const { editable } = this.state;
+    if(editable) {
+      this.setState({ editable: false });
+    } else {
+      this.setState({ editable: true });
+    }
+  }
+
   handleChange = e => {
     this.setState({ value: e.target.value, saving: false });
   };
@@ -120,6 +132,7 @@ class AccountNote extends ImmutablePureComponent {
     if (this._isDirty()) {
       this._save();
     }
+    this.toggleEditable();
   }
 
   _save (showMessage = true) {
@@ -140,7 +153,8 @@ class AccountNote extends ImmutablePureComponent {
 
   render () {
     const { account, intl } = this.props;
-    const { value, saved } = this.state;
+    const { value, saved, editable } = this.state;
+    emojifiedValue = emojify(escapeTextContentForBrowser(value), []);
 
     if (!account) {
       return null;
@@ -151,18 +165,23 @@ class AccountNote extends ImmutablePureComponent {
         <label htmlFor={`account-note-${account.get('id')}`}>
           <FormattedMessage id='account.account_note_header' defaultMessage='Note' /> <InlineAlert show={saved} />
         </label>
-
-        <Textarea
-          id={`account-note-${account.get('id')}`}
-          className='account__header__account-note__content'
-          disabled={this.props.value === null || value === null}
-          placeholder={intl.formatMessage(messages.placeholder)}
-          value={value || ''}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-          onBlur={this.handleBlur}
-          ref={this.setTextareaRef}
-        />
+        { editable ?
+           <Textarea
+           id={`account-note-${account.get('id')}`}
+           className='account__header__account-note__content'
+           disabled={this.props.value === null || value === null}
+           placeholder={intl.formatMessage(messages.placeholder)}
+           value={value || ''}
+           onChange={this.handleChange}
+           onKeyDown={this.handleKeyDown}
+           onBlur={this.handleBlur}
+           ref={this.setTextareaRef}
+         />
+         : 
+         <div className='account__header__account-note__show' onClick={this.toggleEditable}>
+          {value || intl.formatMessage(messages.placeholder)}
+        </div> 
+         }
       </div>
     );
   }
