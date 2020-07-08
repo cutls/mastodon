@@ -63,9 +63,9 @@ class AccountNote extends ImmutablePureComponent {
   };
 
   constructor (props) {
-    super(props)
-    this.setEditable = this.setEditable.bind(this)
-    this.unEditable = this.unEditable.bind(this)
+    super(props);
+    this.setEditable = this.setEditable.bind(this);
+    this.unEditable = this.unEditable.bind(this);
   }
 
   componentWillMount () {
@@ -159,7 +159,7 @@ class AccountNote extends ImmutablePureComponent {
   render () {
     const { account, intl } = this.props;
     const { value, saved, editable } = this.state;
-    let emojifiedValue = emojify(escapeTextContentForBrowser(value.replace(/\r?\n/g,'<br />')), []);
+    let emojifiedValue = emojify(escapeTextContentForBrowser(value), []).replace(/\r?\n/g,'<br />');
     if(!value) {
       emojifiedValue = intl.formatMessage(messages.placeholder);
     }
@@ -173,8 +173,7 @@ class AccountNote extends ImmutablePureComponent {
         <label htmlFor={`account-note-${account.get('id')}`}>
           <FormattedMessage id='account.account_note_header' defaultMessage='Note' /> <InlineAlert show={saved} />
         </label>
-        { editable ?
-           <Textarea
+        <Textarea
            id={`account-note-${account.get('id')}`}
            className='account__header__account-note__content'
            disabled={this.props.value === null || value === null}
@@ -184,13 +183,13 @@ class AccountNote extends ImmutablePureComponent {
            onKeyDown={this.handleKeyDown}
            onBlur={this.handleBlur}
            ref={this.setTextareaRef}
+           style={{ display: editable ? 'block' : 'none' }}
          />
-         : 
          <div className='account__header__account-note__show' onClick={this.setEditable}
-         dangerouslySetInnerHTML={{ __html: emojifiedValue }}
+          dangerouslySetInnerHTML={{ __html: emojifiedValue }}
+          style={{ display: editable ? 'none' : 'block' }}
          >
         </div> 
-         }
       </div>
     );
   }
