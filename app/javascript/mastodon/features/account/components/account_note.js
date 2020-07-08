@@ -96,11 +96,11 @@ class AccountNote extends ImmutablePureComponent {
     this.textarea = c;
   }
 
-  setEditable = () => { 
+  setEditable = () => {
     this.setState({ editable: true });
   }
 
-  setUnEditable = () => { 
+  setUnEditable = () => {
     this.setState({ editable: false });
   }
 
