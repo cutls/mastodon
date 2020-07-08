@@ -7,6 +7,7 @@ import Textarea from 'react-textarea-autosize';
 import { is } from 'immutable';
 import emojify from '../../../features/emoji/emoji';
 import escapeTextContentForBrowser from 'escape-html';
+import classnames from 'classnames';
 
 const messages = defineMessages({
   placeholder: { id: 'account_note.placeholder', defaultMessage: 'Click to add a note' },
@@ -95,11 +96,11 @@ class AccountNote extends ImmutablePureComponent {
     this.textarea = c;
   }
 
-  setEditable () {
+  setEditable = () => { 
     this.setState({ editable: true });
   }
 
-  setUnEditable () {
+  setUnEditable = () => { 
     this.setState({ editable: false });
   }
 
@@ -182,12 +183,12 @@ class AccountNote extends ImmutablePureComponent {
               style={{ display: editable ? 'block' : 'none' }}
               autoFocus
             />
-          :
+            :
             <div
               role='button'
               tabIndex={0}
               className={classNames}
-              onClick={this.setEditable.bind(this)}
+              onClick={this.setEditable}
               dangerouslySetInnerHTML={value ? { __html: emojifiedValue } : null}
               style={{ display: editable ? 'none' : 'block' }}
             >
