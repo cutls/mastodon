@@ -95,7 +95,7 @@ class AccountNote extends ImmutablePureComponent {
     this.textarea = c;
   }
 
-  editable (my) {
+  setEditable (my) {
     my.setState({ editable: true });
   }
   unEditable (my) {
@@ -179,7 +179,7 @@ class AccountNote extends ImmutablePureComponent {
            ref={this.setTextareaRef}
          />
          : 
-         <div className='account__header__account-note__show' onClick={this.editable(this)}
+         <div className='account__header__account-note__show' onClick={this.setEditable(this)}
          dangerouslySetInnerHTML={{ __html: emojifiedValue }}
          >
         </div> 
