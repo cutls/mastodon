@@ -6651,6 +6651,8 @@ noscript {
       color: $darker-text-color;
       cursor: pointer;
       height: 38px;
+      padding: 10px;
+      margin: 0 -10px;
     }
     textarea {
       display: block;
