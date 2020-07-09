@@ -97,6 +97,7 @@ class AccountNote extends ImmutablePureComponent {
   }
 
   setEditable = () => {
+    const { value } = this.state;
     const sleep = (waitSeconds) => {
       return new Promise(resolve => {
         setTimeout(() => {
@@ -109,6 +110,8 @@ class AccountNote extends ImmutablePureComponent {
       .then(() => {
         my.setState({ editable: true });
         my.textarea.focus();
+        const len = value.length;
+        my.textarea.setSelectionRange(len, len);
       }).catch(() => {
         my.setState({ editable: false });
       });
