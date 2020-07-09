@@ -97,7 +97,21 @@ class AccountNote extends ImmutablePureComponent {
   }
 
   setEditable = () => {
-    this.setState({ editable: true });
+    const sleep = (waitSeconds) => {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve();
+        }, waitSeconds);
+      });
+    };
+    let my = this;
+    sleep(50)
+      .then(() => {
+        my.setState({ editable: true });
+        my.textarea.focus();
+      }).catch(() => {
+        my.setState({ editable: false });
+      });
   }
 
   setUnEditable = () => {
@@ -181,7 +195,6 @@ class AccountNote extends ImmutablePureComponent {
               onBlur={this.handleBlur}
               ref={this.setTextareaRef}
               style={{ display: editable ? 'block' : 'none' }}
-              autoFocus
             />
             :
             <div
