@@ -55,6 +55,7 @@ class Settings::PreferencesController < Settings::BaseController
       :setting_show_application,
       :setting_advanced_layout,
       :setting_use_blurhash,
+      :setting_use_opensticker,
       :setting_use_pending_items,
       :setting_trends,
       :setting_crop_images,

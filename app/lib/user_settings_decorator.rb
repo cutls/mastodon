@@ -36,6 +36,7 @@ class UserSettingsDecorator
     user.settings['advanced_layout']     = advanced_layout_preference if change?('setting_advanced_layout')
     user.settings['use_blurhash']        = use_blurhash_preference if change?('setting_use_blurhash')
     user.settings['use_pending_items']   = use_pending_items_preference if change?('setting_use_pending_items')
+    user.settings['use_opensticker']     = use_opensticker_preference if change?('setting_use_opensticker')
     user.settings['trends']              = trends_preference if change?('setting_trends')
     user.settings['crop_images']         = crop_images_preference if change?('setting_crop_images')
   end
@@ -118,6 +119,10 @@ class UserSettingsDecorator
 
   def use_blurhash_preference
     boolean_cast_setting 'setting_use_blurhash'
+  end
+
+  def use_opensticker_preference
+    boolean_cast_setting 'setting_use_opensticker'
   end
 
   def use_pending_items_preference

@@ -35,6 +35,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:reduce_motion]     = object.current_account.user.setting_reduce_motion
       store[:advanced_layout]   = object.current_account.user.setting_advanced_layout
       store[:use_blurhash]      = object.current_account.user.setting_use_blurhash
+      store[:use_opensticker]   = object.current_account.user.setting_use_opensticker
       store[:use_pending_items] = object.current_account.user.setting_use_pending_items
       store[:is_staff]          = object.current_account.user.staff?
       store[:trends]            = Setting.trends && object.current_account.user.setting_trends
@@ -44,6 +45,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:display_media] = Setting.display_media
       store[:reduce_motion] = Setting.reduce_motion
       store[:use_blurhash]  = Setting.use_blurhash
+      store[:use_opensticker]  = Setting.use_opensticker
       store[:crop_images]   = Setting.crop_images
     end
 
