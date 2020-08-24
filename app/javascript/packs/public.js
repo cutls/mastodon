@@ -137,7 +137,6 @@ function main() {
         confirmation.setCustomValidity('');
       }
     });
-
     delegate(document, '.custom-emoji', 'mouseover', getEmojiAnimationHandler('data-original'));
     delegate(document, '.custom-emoji', 'mouseout', getEmojiAnimationHandler('data-static'));
 

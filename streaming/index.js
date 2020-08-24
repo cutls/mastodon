@@ -874,7 +874,6 @@ const startWorker = (workerId) => {
       }
 
       const { listener, stopHeartbeat } = subscription;
-
       channelIds.forEach(channelId => {
         unsubscribe(`${redisPrefix}${channelId}`, listener);
       });
