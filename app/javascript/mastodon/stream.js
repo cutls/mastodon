@@ -65,7 +65,6 @@ const subscribe = ({ channelName, params, onConnect }) => {
   subscriptionCounters[key] += 1;
   onConnect();
 };
-
 /**
  * @param {Subscription} subscription
  */
@@ -112,11 +111,10 @@ const sharedCallbacks = {
   },
 
   disconnected () {
-    subscriptions.forEach(({ onDisconnect }) => onDisconnect());
+    subscriptions.forEach(subscription => unsubscribe(subscription));
   },
 
   reconnected () {
-    subscriptions.forEach(subscription => subscribe(subscription));
   },
 };
 
@@ -182,7 +180,6 @@ export const connectStream = (channelName, params, callbacks) => (dispatch, getS
 
   // If a connection is open, we can execute the subscription right now. Otherwise,
   // because we have already registered it, it will be executed on connect
-
   if (!sharedConnection) {
     sharedConnection = /** @type {WebSocketClient} */ (createConnection(streamingAPIBaseURL, accessToken, '', sharedCallbacks));
   } else if (sharedConnection.readyState === WebSocketClient.OPEN) {
@@ -249,18 +246,10 @@ const createConnection = (streamingAPIBaseURL, accessToken, channelName, { conne
   }
 
   params.push(`access_token=${accessToken}`);
-
   const es = new EventSource(`${streamingAPIBaseURL}/api/v1/streaming/${channelName}?${params.join('&')}`);
 
-  let firstConnect = true;
-
   es.onopen = () => {
-    if (firstConnect) {
-      firstConnect = false;
-      connected();
-    } else {
-      reconnected();
-    }
+    connected();
   };
 
   KNOWN_EVENT_TYPES.forEach(type => {
